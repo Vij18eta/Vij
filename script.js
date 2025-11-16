@@ -13,14 +13,21 @@ const observer = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
+
+        // if this element has butterfly effect, trigger it
+        if (entry.target.dataset.butterfly === "true") {
+          entry.target.classList.add("butterfly-fly");
+        }
+
         observer.unobserve(entry.target);
       }
     });
   },
-  { threshold: 0.1 }
+  { threshold: 0.2 }
 );
 
 revealEls.forEach((el) => observer.observe(el));
+
 
 // TILT EFFECT ON PROJECT CARDS
 const tiltCards = document.querySelectorAll(".tilt");
